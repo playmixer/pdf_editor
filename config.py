@@ -7,7 +7,7 @@ config = {
     "ALLOWED_EXTENSIONS": ['pdf'],
     "TEMPLATES": os.path.join("src", "templates"),
     "STATIC": os.path.join("src", "static"),
-    "UPLOAD_FOLDER": "upload",
+    "UPLOAD_FOLDER": os.path.abspath(os.path.join(os.path.dirname(__file__), "upload")),
     "MAX_SIZE_FILE": 100,
     "FILE_NAME_LENGTH": 20,
     "FILE_STORAGE_TIME": 3600,
