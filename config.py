@@ -2,6 +2,8 @@ import os
 
 config = {
     "DEBUG": True,
+    "HOST": "localhost",
+    "PORT": 5000,
     "ALLOWED_EXTENSIONS": ['pdf'],
     "TEMPLATES": os.path.join("src", "templates"),
     "STATIC": os.path.join("src", "static"),

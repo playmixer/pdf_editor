@@ -17,4 +17,8 @@ app.add_url_rule('/download/<filename>', view_func=download.download_view)
 
 
 if __name__ == '__main__':
-    app.run(debug=config['DEBUG'], use_reloader=True)
+    app.run(debug=config['DEBUG'],
+                use_reloader=True,
+                host=config['HOST'],
+                port=config['PORT']
+                )
