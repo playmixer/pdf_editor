@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Document{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for ('static' , filename='css/main.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+  <div class="content">
+    <div class="nav_menu" style="display: flex; align-items: flex-start;">
+      <a class="link" name="nav_link" href="remove_pages">Удалить PDF-страницы</a>
+      <a class="link" name="nav_link" href="merge_pdf">Объединить PDF файлы</a>
+      <a class="link" name="nav_link" href="organize_pdf">Организовать PDF</a>
+    </div>
+    {% block content %}
+    
+    {% endblock %}
+  </div>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

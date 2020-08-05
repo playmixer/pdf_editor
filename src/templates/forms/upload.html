@@ -1,0 +1,45 @@
+
+<div class="block_group">
+  <form method="post" enctype="multipart/form-data" id="upload_file_form" class="form_group">
+    <div style="display: flex;">
+      <input type="file" id="upload_file" name="upload_file" class="upload" accept=".pdf" 
+      {% if multiple %}
+      multiple
+      {% endif %}
+      />
+      <label for="upload_file" id="upload_file_label" class="btn">
+        <span class="btn_image"><img src="{{ url_for('static', filename='images/baseline_cloud_upload_white_18dp.png') }}" alt=""></span>
+        <span class="btn_text">Выберите файл</span>
+      </label>
+      <input type="submit" value="Загрузить" hidden>
+    </div>
+  </form>
+</div>
+<script>
+  const MAX_SIZE_FILE = "{{ settings['MAX_SIZE_FILE'] if settings['MAX_SIZE_FILE'] else 10 }}"; //мб
+  const upload_file = "{{ upload_file if upload_file else '' }}";
+  const ALLOWED_EXTENSIONS = {{ settings['ALLOWED_EXTENSIONS']|tojson }};
+  upload_input = document.getElementById('upload_file')
+  upload_input.onchange = function(e) {
+    upload_btn = document.getElementById('upload_btn')
+    upload_form = document.getElementById('upload_file_form')
+    error_message = document.getElementById('error_message')
+    if (e.target.value !== '') {
+      error_message.innerText = '';
+      for (var i = 0; i < e.target.files.length; i++) {
+        const size = e.target.files[i].size / 1024 / 1024;
+        const extension = e.target.files[i].name.split('.').pop();
+        
+        if (size > MAX_SIZE_FILE) {
+          error_message.innerText += `Файл ${e.target.files[i].name} превышает размер ${MAX_SIZE_FILE}Мб\n`
+        }
+        if (!ALLOWED_EXTENSIONS.includes(extension)) {
+          error_message.innerText += `Файл ${e.target.files[i].name} с расширением ${extension} запрещен\n`
+        }
+      }
+      if (error_message.innerText === '') {
+        upload_form.submit()
+      }
+    }
+  }
+</script>

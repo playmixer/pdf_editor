@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% block title %}Удалить страницы{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div>
+    <h1>Объединить PDF файлы</h1>
+    <div class="error" id="error_message">
+      {{ error }}
+    </div>
+  </div>
+
+  {% if status=='nofile' %}
+    {% with multiple=True %}
+      {% include 'forms/upload.html' %}
+    {% endwith %}
+  {% endif %}
+
+  {% if status=='uploaded' %}
+  <form method="post" action="merge_pdf?action=merge" enctype="multipart/form-data" id="upload_file_form" class="form_group">
+    <div class="block_group" id="form_merge">
+      <h3 class="block_item title">Загруженные файлы</h3>
+      <span class="block_item title">Перетащите, что бы отсортировать</span>
+      <ul id="file_list" class="list_group">
+        {% for file in files %}
+        <li class="list_item">
+          <span>Файл </span>
+          <span class="text_decor">{{ file.title }},</span>
+          <span> кол-во страниц </span>
+          <span class="text_decor"> {{ file.page_count }}</span>
+          <a class="list_item_btn_remove" onclick="removePdf(this)"><img src="{{ url_for('static', filename='images/baseline_close_white_18dp.png') }}" alt="удалить"></a>
+          <input type="hidden" name="sorted_files" value="{{ file.filename }}">
+        </li>
+        {% endfor %}
+      </ul>
+      <a class="btn_add" style='display: none;'><span>+</span></a>
+      <input type="hidden" id="f" name="f" value="{% for file in files %}{{ file.filename }},{% endfor %}">
+      
+      <div class="action_panel">
+        <a class="action_btn" onclick="cancel()">Сбросить</a>
+      </div>
+
+      <button class="btn btn_next" type="submit">
+        <span class="btn_text">Объединить PDF файлы</span>
+        <span class="btn_image"><img src="{{ url_for('static', filename='images/baseline_navigate_next_white_18dp.png') }}" alt=""></span>
+      </button>
+    </div>
+  </form>
+
+  <script src="{{ url_for('static', filename='js/Sortable.min.js') }}"></script>
+  <script>
+    Sortable.create(file_list, {
+      animation: 150,
+      ghostClass: 'dragable_item'
+    });
+    const uploaded_files = {{ files|tojson }};
+    
+    fileList = document.getElementById('file_list');
+    const save_file_list = fileList.innerHTML;
+
+    function removePdf(el) {
+      el.parentNode.remove()
+    }
+
+    function cancel() {
+      fileList.innerHTML = save_file_list;
+    }
+
+  </script>
+  {% endif %}
+
+  {% if status=='completed' %}
+    {% with filename=upload_file_name %}
+      {% include 'forms/download_file.html' %}
+    {% endwith %}
+  {% endif %}
+
+{% endblock %}

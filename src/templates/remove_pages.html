@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+{% block title %}Удалить страницы{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div>
+        <h1>Удалить PDF-страницы</h1>
+        <div class="error" id="error_message">
+            {{ error }}
+        </div>
+    </div>
+
+    {% if status=='nofile' %}
+    {% include 'forms/upload.html' %}
+    {% endif %}
+
+    {% if status=='uploaded' %}
+    <div class="block_group">
+        <span class="block_item">Файл <span class="text_decor">{{ files[0].title }}</span> загружен</span>
+        <span class="block_item">Кол-во страниц <span class="text_decor">{{ files[0].page_count }}</span></span>
+        <div class="block_item">
+            <label for="remove_pages">Выберите страницы для удаления: </label>
+            <input id="remove_pages" type="text" placeholder="пример: 1,5-8" class="input">
+        </div>
+        <span class="block_item" id="number_page_list"></span>
+        <form action="?action=remove&f={{ files[0].filename }}" method="post">
+            <input type="hidden" value="" name="form_page_list">
+            <button class="btn btn_next" type="submit" id="form_page_list_submit" disabled>
+                <span class="btn_text">Удалить страницы</span>
+                <span class="btn_image"><img
+                        src="{{ url_for('static', filename='images/baseline_navigate_next_white_18dp.png') }}"
+                        alt=""></span>
+            </button>
+        </form>
+    </div>
+    <script>
+    const allowed_charset = /[0-9,-]/;
+    const input_pages = document.getElementById('remove_pages')
+    const MAX_NUM_PAGE = 1000;
+
+    input_pages.oninput = function(e) {
+      let res = ''        
+      e.target.value.split('').forEach(val => {
+        if (allowed_charset.exec(val)) {
+          res += val
+        }
+      })
+      e.target.value = res
+      const out_page_list = document.getElementById('number_page_list')
+      const form_input_hidden = document.getElementsByName('form_page_list')[0]
+      const remove_page_list = split_number_pages(res)
+      const form_page_list_submit = document.getElementById('form_page_list_submit')
+
+      out_page_list.innerText = remove_page_list.join(', ')
+      form_input_hidden.value = remove_page_list.join(',')
+      form_page_list_submit.disabled = !remove_page_list.length ? true : false
+    }
+
+    function split_number_pages(data) {
+      const splited = data.split(',')
+
+      let res = []
+      splited.forEach(val => {
+        if (val.indexOf('-') + 1) {
+          res = res.concat(split_dash(val))
+        } else if (val.length) {
+          res.push(Number(val))
+        }
+      })
+      return res
+    }
+
+    function split_dash(data) {
+      res = []
+      splited = data.split('-').filter(val => {
+        return val !== '-' && val !== '' && Number(val) < MAX_NUM_PAGE
+      })
+      if (splited.length === 2) {
+        return [...Array(Number(splited[1]) + 1).keys()].slice(Number(splited[0]), Number(splited[1]) + 1)
+      }
+      return []
+    }
+
+    </script>
+    {% endif %}
+
+    {% if status=='completed' %}
+    {% with filename=upload_file_name %}
+    {% include 'forms/download_file.html' %}
+    {% endwith %}
+    {% endif %}
+
+</div>
+{% endblock %}

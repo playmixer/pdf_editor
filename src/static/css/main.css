@@ -1,0 +1,356 @@
+/* Roboto regular */
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/static/fonts/Roboto-Regular.ttf") format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+/* Roboto Thin */
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/static/fonts/Roboto-Thin.ttf") format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+/* Roboto italic */
+
+@font-face {
+  font-family: "Roboto";
+  src: url('/static/fonts/Roboto-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Roboto bold */
+
+@font-face {
+  font-family: "Roboto";
+  src: url('/static/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  background-color: whitesmoke;
+}
+
+h1, h2, h3, h4, h4, h6 {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-style: normal;
+}
+
+.title {
+  text-align: center;
+}
+
+.input {
+  border-width: 0.5px;
+  border-radius: 2px;
+  height: 25px;
+  padding-left: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.form_group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  color: #e5322d;
+  font-weight: 600;
+}
+
+.content {
+  padding: 5px 40px;
+  min-height: 90vh;
+  margin: auto;
+  max-width: 1200px;
+  background-color: whitesmoke;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.block_group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 600px;
+  margin-bottom: 10px;
+  max-width: 100vw;
+}
+
+.block_item {
+  flex: 1;
+  height: 25px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.nav_menu {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: solid 0.5px #ccc;
+  padding-bottom: 10px;
+}
+
+.link {
+  padding: 5px;
+  margin-right: 15px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.link.active {
+  color: #e5322d;
+}
+
+.link:hover {
+  color: #e5322d;
+}
+
+.upload {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.btn {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: #e5322d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; 
+  border: none;
+  border-radius: 5px;
+  padding: 0 20px;
+  min-height: 60px;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(200, 200, 200, 0.7);
+}
+
+.btn:hover {
+  background-color: black;
+  transition-duration: 0.4s;
+  cursor: pointer; 
+}
+
+.btn:disabled {
+  background-color: #ccc;
+}
+
+.btn .btn_text {
+  min-height: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.btn .btn_image {
+  min-height: inherit;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.text_decor {
+  font-weight: 600;
+}
+
+.btn_back {
+  align-self: flex-start;
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  cursor: pointer; 
+  line-height: 20px;
+  text-decoration: none;
+  padding: 10px;
+  color: black;
+}
+
+.btn_back:hover {
+  padding-left: 5px;
+  cursor: pointer; 
+}
+
+.btn_back:before {
+  background: url('/static/images/baseline_keyboard_arrow_left_black_18dp.png') no-repeat;
+  background-size: 25px 25px;
+  content:"";
+}
+
+.btn_add {
+  position: absolute;
+  right: 20px;
+  top: 150px;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  font-size: 40px;
+  background-color: #e5322d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}
+
+.btn_add:hover {
+  background-color: black;
+  transition-duration: 0.4s;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  cursor: pointer; 
+}
+
+.list_group {
+  width: 100%;
+  padding-left: 0;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+.list_group .list_item {
+  list-style-type: none;
+  margin-bottom: -1px;
+  border: solid 0.5px #ccc;
+  padding: 10px;
+  cursor: default;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.list_group .list_item span {
+  margin-right: 5px;
+}
+
+.list_group .list_item .list_item_btn_remove {
+  position: absolute;
+  cursor: pointer; 
+  right: 5px;
+  text-decoration: none;
+  background-color: #ccc;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
+.list_group .list_item:hover .list_item_btn_remove {
+  display: flex;
+}
+
+.list_group .list_item .list_item_btn_remove:hover {
+  background-color: #e5322d;
+}
+
+.list_group .list_item.dragable_item {
+  margin-left: 10px;
+  background-color: #fdd4d45c;
+}
+
+.list_group_pages {
+  width: 100%;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 0 5px 0;
+}
+
+.list_group_pages .list_page {
+  list-style-type: none;
+  width: 80px;
+  height: 120px;
+  border: solid 0.5px #ccc;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 5px;
+  cursor: move;
+  color: black;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+}
+
+.list_page.selected, .list_page.draggable_list {
+  background-color: #df121217;
+}
+
+.list_page .list_page_btn_remove {
+  position: relative;
+  cursor: pointer; 
+  background-color: #ccc;
+  border-radius: 50%;
+  display: none;
+  width: 20px;
+  height: 20px;
+  top: -83px;
+  right: -30px;
+}
+
+.list_page .list_page_btn_remove img {
+  width: 20px;
+  height: 20px;
+}
+
+.list_page:hover .list_page_btn_remove {
+  display: block;
+}
+
+.list_page:hover .list_page_btn_remove:hover {
+  background-color: #e5322d;
+}
+
+.action_panel {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.action_panel .action_btn {
+  cursor: pointer; 
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+  border: solid 0.5px #ccc;
+}
+
+.action_panel .action_btn:hover {
+  background-color: #ccc;
+}
