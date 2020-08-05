@@ -1,4 +1,8 @@
-import multiprocessing
+#more settings
+#https://docs.gunicorn.org/en/latest/settings.html#settings
 
-bind = "127.0.0.1:8000"
-workers = multiprocessing.cpu_count() * 2 + 1
+# import multiprocessing
+
+bind = "0.0.0.0:8000"
+#workers = multiprocessing.cpu_count() * 2 + 1
+workers = 3
