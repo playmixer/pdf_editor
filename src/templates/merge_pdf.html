@@ -28,8 +28,13 @@
           <span class="text_decor">{{ file.title }},</span>
           <span> кол-во страниц </span>
           <span class="text_decor"> {{ file.page_count }}</span>
-          <a class="list_item_btn_remove" onclick="removePdf(this)"><img src="{{ url_for('static', filename='images/baseline_close_white_18dp.png') }}" alt="удалить"></a>
+          <a class="list_item_btn_remove" onclick="removePdf(this)">
+            <span>
+              <img src="{{ url_for('static', filename='images/baseline_close_white_18dp.png') }}" alt="удалить">
+            </span>
+          </a>
           <input type="hidden" name="sorted_files" value="{{ file.filename }}">
+          <input type="hidden" name="sorted_files_title" value="{{ file.title }}">
         </li>
         {% endfor %}
       </ul>
