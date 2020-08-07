@@ -49,6 +49,7 @@ h1, h2, h3, h4, h4, h6 {
 
 .title {
   text-align: center;
+  margin: 10px;
 }
 
 .input {
@@ -273,7 +274,7 @@ h1, h2, h3, h4, h4, h6 {
 
 .list_group .list_item .list_item_btn_remove {  
   cursor: pointer; 
-  background-color: #ccc;
+  background-color: #cccccc;
   border-radius: 50%;
   display: none;
   align-items: center;
@@ -342,6 +343,17 @@ h1, h2, h3, h4, h4, h6 {
   height: 20px;
   top: -83px;
   right: -30px;
+  z-index: 1;
+}
+
+.list_page .list_page_num {
+  z-index: 1;
+}
+
+.list_page .list_page_img {
+  width: inherit;
+  position: absolute;
+  padding: 5px;
 }
 
 .list_page .list_page_btn_remove img {
