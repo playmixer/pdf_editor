@@ -1,9 +1,9 @@
-from flask import render_template, request
+from flask import render_template, request, redirect
 import os
 from config import config
 from src.utils.pdf import PdfEditor
 from src.services import uploading_file
-from src.status import status
+from src.const.status import status
 
 
 def remove_pages_view():
@@ -23,6 +23,11 @@ def remove_pages_view():
                                    upload_file_name=filename,
                                    status=status['COMPLETED']
                                    )
+
+        return render_template("message.html", message={
+                            'title': 'Что то пошло не так',
+                            'description': ''
+                            })
 
     if len(request.values) > 0:
         return redirect(request.path)
