@@ -4,14 +4,16 @@
 {% block content %}
 <div class="container">
   <div>
-    <h1>Объединить PDF файлы</h1>
+    <h1 class="title">Объединить PDF файлы</h1>
+    <h3 class="title">Объединяйте PDF файлы и упорядочите их легко и быстро в любом порядке, который вам нравится.</h3>
+    <h3 class="title">Выберите несколько файлов.</h3>
     <div class="error" id="error_message">
       {{ error }}
     </div>
   </div>
 
   {% if status=='nofile' %}
-    {% with multiple=True %}
+    {% with multiple=True, title='Выберите несколько файлов' %}
       {% include 'forms/upload.html' %}
     {% endwith %}
   {% endif %}
@@ -75,7 +77,7 @@
   {% endif %}
 
   {% if status=='completed' %}
-    {% with filename=upload_file_name %}
+    {% with filename=upload_file_name, title='Скачать объединенный PDF файл' %}
       {% include 'forms/download_file.html' %}
     {% endwith %}
   {% endif %}
