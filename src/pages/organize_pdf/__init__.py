@@ -5,6 +5,8 @@ from src.utils.pdf import PdfEditor
 from src.services import uploading_file
 from src.const.status import status
 
+GENERATE_IMG = config['SHOW_REAL_PAGE_IMAGE']
+
 
 def organize_pdf_view():
     template = 'organize_pdf.html'
@@ -12,7 +14,7 @@ def organize_pdf_view():
     if request.method == 'POST':
         ACTION = request.values.get('action')
         if ACTION is None:
-            return uploading_file(request, template, config, status)
+            return uploading_file(request, template, config, status, generate_img=GENERATE_IMG)
 
         if ACTION == status['ORGANIZE']:
             sort_pages = [int(x) for x in request.values.getlist('sort_pages')]
