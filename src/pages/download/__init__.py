@@ -1,7 +1,6 @@
 from flask import send_from_directory, render_template
 from config import config
 import os
-from src.utils.pdf import PdfEditor
 from src.const.messages import messages
 
 
