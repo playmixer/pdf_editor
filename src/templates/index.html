@@ -9,13 +9,38 @@
 </head>
 <body>
   <div class="content">
-    <div class="nav_menu" style="display: flex; align-items: flex-start;">
-      <a class="link" name="nav_link" href="remove_pages">Удалить PDF-страницы</a>
-      <a class="link" name="nav_link" href="merge_pdf">Объединить PDF файлы</a>
-      <a class="link" name="nav_link" href="organize_pdf">Организовать PDF</a>
+    <div class="nav_menu">
+      <a class="nav_caption" name="nav_link" href="/" style="display: flex; justify-content: center; align-items: center;">
+        <img src="{{ url_for ('static', filename='images/pdf_home.png') }}" alt="Главная страница" style="max-height: inherit;">
+        <span>PDF</span>
+      </a>
+      <a class="link" name="nav_link" href="/remove_pages">Удалить PDF-страницы</a>
+      <a class="link" name="nav_link" href="/merge_pdf">Объединить PDF файлы</a>
+      <a class="link" name="nav_link" href="/organize_pdf">Организовать PDF</a>
     </div>
     {% block content %}
-    
+    <div class="tools_container">
+      <a href="remove_pages" class="tool_link">
+        <div class="tool_conten">
+          <span class="tool_head">Удалить PDF-страницы</span>
+          <span class="tool_description">Выберите и удалите ненужные PDF-страницы. Получить новый файл без ваших удаленных страниц.</span>
+        </div>
+      </a>
+      <a href="merge_pdf" class="tool_link">
+        <div class="tool_conten">
+          <span class="tool_head">Объединить PDF файлы</span>
+          <span class="tool_description">Объединяйте PDF файлы и упорядочите их легко и быстро в любом порядке.</span>
+        </div>
+      </a>
+      <a href="organize_pdf" class="tool_link">
+        <div class="tool_conten">
+          <span class="tool_head">Организовать PDF</span>
+          <span class="tool_description">Сортировка и удаление PDF-страниц.
+            Перетащите миниатюры страниц и отсортируйте их.</span>
+        </div>
+      </a>
+
+    </div>
     {% endblock %}
   </div>
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
