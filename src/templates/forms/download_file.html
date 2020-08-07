@@ -2,7 +2,13 @@
   <div class="form_group">
     <a href="download/{{ upload_file_name }}" class="btn btn_download">
       <span class="btn_image"><img src="{{ url_for('static', filename='images/baseline_get_app_white_18dp.png') }}" alt=""></span>
-      <span class="btn_text">Скачать PDF-файл</span>
+      <span class="btn_text">
+        {% if title %}
+          {{ title }}
+        {% else %}
+          Скачать PDF файл
+        {% endif %}
+      </span>
     </a>
   </div>
   <a href="/" class="btn_back">Назад</a>
