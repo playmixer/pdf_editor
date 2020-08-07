@@ -6,27 +6,36 @@ from flask import render_template
 from config import config
 from time import time
 
+UPLOAD_FOLDER = config['UPLOAD_FOLDER']
+MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES']
 
-def uploading_file(request, template, config, status):
-    if not os.path.exists(config['UPLOAD_FOLDER']):
-        os.mkdir(config['UPLOAD_FOLDER'])
+
+def uploading_file(request, template, config, status, *args, **kwargs):
+    GENERATE_IMG = kwargs.get('generate_img') if kwargs.get('generate_img') else False
+
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.mkdir(UPLOAD_FOLDER)
+
     cleaning_upload_folder()
     files = request.files.getlist('upload_file')
     if files is None:
         return render_template(template, error="Файл не выбран", status=status['NOFILE'], settings=config)
 
     uploaded_files = []
-    for file in files:
-        if file and allowed_file(file.filename):
+    for file_ in files:
+        if file_ and allowed_file(file_.filename):
             filename = rnd.get_random_string()
-            filename_title = secure_filename(file.filename)
-            path_to_file = os.path.join(config['UPLOAD_FOLDER'], '.'.join([filename, 'pdf']))
-            file.save(path_to_file)
+            filename_title = secure_filename(file_.filename)
+            path_to_file = os.path.join(UPLOAD_FOLDER, '.'.join([filename, 'pdf']))
+            file_.save(path_to_file)
             pdf = PdfEditor(path_to_file)
+            images = generating_images(path_to_file) if GENERATE_IMG else ''
+
             uploaded_files.append({
                 'filename': filename,
                 'title': filename_title,
-                'page_count': pdf.pageCount()
+                'page_count': pdf.pageCount(),
+                'images': images
             })
 
     if len(uploaded_files) == 0:
@@ -44,8 +53,19 @@ def uploading_file(request, template, config, status):
 
 
 def cleaning_upload_folder():
-    files_of_upload = [os.path.join(config['UPLOAD_FOLDER'], f) for f in os.listdir(config['UPLOAD_FOLDER']) if
-                       os.path.isfile(os.path.join(config['UPLOAD_FOLDER'], f))]
+    files_of_upload = [os.path.join(UPLOAD_FOLDER, f) for f in os.listdir(UPLOAD_FOLDER) if
+                       os.path.isfile(os.path.join(UPLOAD_FOLDER, f))]
     for file_ in files_of_upload:
         if time() - os.stat(file_).st_ctime > config['FILE_STORAGE_TIME']:
             os.remove(file_)
+
+
+def generating_images(filename):
+    pdf = PdfEditor(filename)
+    images = []
+    start = time()
+    for i in range(pdf.pageCount()):
+        img = pdf.pageToPng(i) if (time() - start < MAX_TIME_LOADING) else ''
+        images.append(os.path.split(img)[1])
+
+    return images
