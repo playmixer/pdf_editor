@@ -1,11 +1,10 @@
 from flask import render_template, request, redirect
-from src.utils import allowed_file, rnd
-from werkzeug.utils import secure_filename
 import os
 from config import config
 from src.utils.pdf import PdfEditor
 from src.services import uploading_file
-from src.status import status
+from src.const.status import status
+from src.const.messages import messages
 
 
 def merge_pdf_view():
@@ -18,11 +17,21 @@ def merge_pdf_view():
 
         if ACTION == status['MERGE']:
             files = request.values.getlist('sorted_files')
+            if not len(files):
+                return render_template("message.html", message=messages['no_have_select_file'])
+
+            files_title = request.values.getlist('sorted_files_title')
             file_ = PdfEditor(os.path.join(config['UPLOAD_FOLDER'], '.'.join([files[0], 'pdf'])))
             for i in range(1, len(files)):
-                file_ = file_.merge(os.path.join(config['UPLOAD_FOLDER'], '.'.join([files[i], 'pdf'])))
+                file_for_merge = os.path.join(config['UPLOAD_FOLDER'], '.'.join([files[i], 'pdf']))
+                try:
+                    file_.merge(file_for_merge)
+                except ValueError:
+                    mess = dict(messages['file_corrupted'])
+                    mess['title'] = mess['title'].format(filename=files_title[i])
+                    return render_template('message.html', message=mess)
 
-            extract_filename = os.path.split(file_.getFileName())[1].split('.')[0]
+            extract_filename = file_.getFileName().split('.')[0]
             return render_template(template,
                                    upload_file_name=extract_filename,
                                    status=status['COMPLETED'],
