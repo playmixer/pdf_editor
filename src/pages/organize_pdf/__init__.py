@@ -3,7 +3,7 @@ import os
 from config import config
 from src.utils.pdf import PdfEditor
 from src.services import uploading_file
-from src.status import status
+from src.const.status import status
 
 
 def organize_pdf_view():
