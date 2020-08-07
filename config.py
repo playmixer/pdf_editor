@@ -14,5 +14,6 @@ config = {
     "MAX_SIZE_FILE": 100,
     "FILE_NAME_LENGTH": 20,
     "FILE_STORAGE_TIME": 600,  # 60 = 1 мин,
-    "PDF_SHOW_REAL_PAGE_IMAGE": False,  # большая нагрузка
+    "SHOW_REAL_PAGE_IMAGE": True,  # большая нагрузка
+    "LONG_TIME_LOADING_REAL_IMAGES": 10,
 }
