@@ -39,7 +39,7 @@ PDF Editor
 1. sudo apt install gunicorn3
 2. cd pdf_editor
 2. pip3 install -r requirements.txt
-3. изменить настройки в gunicorn.config.py
+3. выставить настройки в gunicorn.config.py
 3. gunicorn3 wsgi:app
 
 ***Dev server***
