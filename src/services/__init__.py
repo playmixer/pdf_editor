@@ -8,6 +8,8 @@ from time import time
 
 
 def uploading_file(request, template, config, status):
+    if not os.path.exists(config['UPLOAD_FOLDER']):
+        os.mkdir(config['UPLOAD_FOLDER'])
     cleaning_upload_folder()
     files = request.files.getlist('upload_file')
     if files is None:
