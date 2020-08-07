@@ -25,20 +25,20 @@ PDF Editor
 
 **Ubuntu**
 
-<!--**Дополнительный инструменты**-->
+**Дополнительный инструменты**
 
-<!--*  При включенном параметре *PDF_SHOW_REAL_PAGE_IMAGE* в config.py-->
-<!-->  Реальное отображение страниц PDF файла-->
+**При включенном параметре *PDF_SHOW_REAL_PAGE_IMAGE* в config.py**
+>  Реальное изображение страниц PDF файла
 
-<!--1.  sudo apt-get install libmagickwand-dev-->
-<!--2.  sudo vi etc/Imagemagick-6/policy.xml-->
+1.  sudo apt-get install libmagickwand-dev
+2.  sudo vi etc/Imagemagick-6/policy.xml
 
 
-<!--Изменить строку-->
-<!-->  `<policy domain="coder" rights="none" pattern="PDF" />`-->
+Изменить строку
+>  `<policy domain="coder" rights="none" pattern="PDF" />`
 
-<!--на-->
-<!-->  `<policy domain="coder" rights="read|write" pattern="PDF" />`-->
+на
+>  `<policy domain="coder" rights="read|write" pattern="PDF" />`
 
 
 
