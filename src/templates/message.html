@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Файл не найден
+{% endblock %}
+
+{% block content %}
+<div class="page_file_message">
+  <span class="page_file_message_title">{{ message.title }}</span>
+  <span class="page_file_message_description">{{ message.description }}</span>
+</div>
+{% endblock %}
