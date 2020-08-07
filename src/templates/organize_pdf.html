@@ -3,71 +3,83 @@
 
 {% block content %}
 <div class="container">
-  <div>
-    <h1>Организовать PDF</h1>
-    <div class="error" id="error_message">
-      {{ error }}
+    <div>
+        <h1 class="title">Организовать PDF</h1>
+        <h3 class="title">Сортировка и удаление PDF-страниц.</h3>
+        <h3 class="title">Перетащите миниатюры страниц и отсортируйте их.</h3>
+        <div class="error" id="error_message">
+            {{ error }}
+        </div>
     </div>
-  </div>
 
-  {% if status=='nofile' %}
+    {% if status=='nofile' %}
     {% include 'forms/upload.html' %}
-  {% endif %}
+    {% endif %}
 
-  {% if status=='uploaded' %}
-  <form method="post" action="organize_pdf?action=organize" enctype="multipart/form-data" id="upload_file_form" class="form_group">
-    <div class="block_group" id="form_orginaze">
-      <h3 class="block_item title">Страницы загруженного файла</h3>
-      <span class="block_item title">Перетащите, что бы отсортировать</span>
-      <ul id="pageList" class="list_group_pages">
-        {% for i in range(files[0].page_count) %}
-          <li class="list_page">
-            <a class="list_page_btn_remove" onclick="removePage(this)">
-              <span><img src="{{ url_for('static', filename='images/baseline_close_white_18dp.png') }}" alt="remove"></span>
-            </a>
-            <span>Стр. {{ i + 1 }}</span>
-            <input type="hidden" name="sort_pages" value="{{ i }}">
-          </li>
-        {% endfor %}
-      </ul>
-      <input type="hidden" name="f" id="f" value="{{ files[0].filename }}">
-      <div class="action_panel">
-        <a class="action_btn" href=# onclick="cancel()">Сбросить</a>
-      </div>
-      <button class="btn btn_next" type="submit">
-        <span class="btn_text">Организовать</span>
-        <span class="btn_image"><img src="{{ url_for('static', filename='images/baseline_navigate_next_white_18dp.png') }}" alt=""></span>
-      </button>
-    </div>
-  </form>
+    {% if status=='uploaded' %}
+    <form method="post" action="organize_pdf?action=organize" enctype="multipart/form-data" id="upload_file_form"
+          class="form_group">
+        <div class="block_group" id="form_orginaze">
+            <h3 class="block_item title">Страницы загруженного файла</h3>
+            <ul id="pageList" class="list_group_pages">
+                {% for i in range(files[0].page_count) %}
+                <li class="list_page">
+                    <a class="list_page_btn_remove" onclick="removePage(this)">
+                        <span>
+                            <img src="{{ url_for('static', filename='images/baseline_close_white_18dp.png') }}"
+                                   alt="remove">
+                        </span>
+                    </a>
+                    <span class="list_page_num">Стр. {{ i + 1 }}</span>
+                    {% if files[0].images[i] %}
+                    <img class="list_page_img" src="/uploads/{{ files[0].images[i] }}" alt="">
+                    {% else %}
+                    <img class="list_page_img" src="{{ url_for('static', filename='images/default_page.png') }}" alt="">
+                    {% endif %}
+                    <input type="hidden" name="sort_pages" value="{{ i }}">
+                </li>
+                {% endfor %}
+            </ul>
+            <input type="hidden" name="f" id="f" value="{{ files[0].filename }}">
+            <div class="action_panel">
+                <a class="action_btn" href=# onclick="cancel()">Сбросить</a>
+            </div>
+            <button class="btn btn_next" type="submit">
+                <span class="btn_text">Организовать</span>
+                <span class="btn_image"><img
+                        src="{{ url_for('static', filename='images/baseline_navigate_next_white_18dp.png') }}"
+                        alt=""></span>
+            </button>
+        </div>
+    </form>
 
-  <script src="{{ url_for('static', filename='js/Sortable.min.js') }}"></script>
-  <script>
-    Sortable.create(pageList, {
-      multiDrag: true,
-      selectedClass: 'selected',
-      swapThreshold: 1,
-      ghostClass: 'draggable_list',
-      animation: 150,
-    });
-    const uploaded_files = {{ files|tojson }};
-    pageList = document.getElementById('pageList');
-    const save_page_list = pageList.innerHTML;
+    <script src="{{ url_for('static', filename='js/Sortable.min.js') }}"></script>
+    <script>
+        Sortable.create(pageList, {
+            multiDrag: true,
+            selectedClass: 'selected',
+            swapThreshold: 1,
+            ghostClass: 'draggable_list',
+            animation: 150,
+        });
+        const uploaded_files = {{ files|tojson }};
+        pageList = document.getElementById('pageList');
+        const save_page_list = pageList.innerHTML;
 
-    function removePage(el) {
-      el.parentNode.remove()
-    }
+        function removePage(el) {
+            el.parentNode.remove()
+        }
 
-    function cancel() {
-      pageList.innerHTML = save_page_list;
-    }
-  </script>
-  {% endif %}
+        function cancel() {
+            pageList.innerHTML = save_page_list;
+        }
+    </script>
+    {% endif %}
 
-  {% if status=='completed' %}
-    {% with filename=upload_file_name %}
-      {% include 'forms/download_file.html' %}
+    {% if status=='completed' %}
+    {% with filename=upload_file_name, title='Скачать организованный PDF файл' %}
+    {% include 'forms/download_file.html' %}
     {% endwith %}
-  {% endif %}
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}
