@@ -20,10 +20,27 @@ PDF Editor
 1. cd pdf_editor
 2. env/Scripts/activate.bat
 3. pip3 install -r requirement
-3. python3 main.py
+4. python3 main.py
 
 
 **Ubuntu**
+
+**Дополнительный инструменты**
+
+**При включенном параметре *PDF_SHOW_REAL_PAGE_IMAGE* в config.py**
+>  Реальное изображение страниц PDF файла
+
+1.  sudo apt-get install libmagickwand-dev
+2.  sudo vi etc/Imagemagick-6/policy.xml
+
+
+Изменить строку
+>  `<policy domain="coder" rights="none" pattern="PDF" />`
+
+на
+>  `<policy domain="coder" rights="read|write" pattern="PDF" />`
+
+
 
 ***Виртуальная среда:***
 1. sudo apt install -y python3-venv
@@ -39,7 +56,7 @@ PDF Editor
 1. sudo apt install gunicorn3
 2. cd pdf_editor
 2. pip3 install -r requirements.txt
-3. выставить настройки в gunicorn.config.py
+3. выставить настройки в gunicorn.config.py, кол-во воркеров, хост, порт
 3. gunicorn3 wsgi:app
 
 ***Dev server***
