@@ -15,10 +15,9 @@ app.add_url_rule('/merge_pdf', view_func=merge_pdf.merge_pdf_view, methods=['GET
 app.add_url_rule('/organize_pdf', view_func=organize_pdf.organize_pdf_view, methods=['GET', 'POST'])
 app.add_url_rule('/download/<filename>', view_func=download.download_view)
 
-
 if __name__ == '__main__':
-    app.run(debug=config['DEBUG'],
+    app.run(debug=config['DEV_DEBUG'],
                 use_reloader=True,
-                host=config['HOST'],
-                port=config['PORT']
+                host=config['DEV_HOST'],
+                port=config['DEV_PORT']
                 )
