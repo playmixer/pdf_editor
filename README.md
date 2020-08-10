@@ -77,4 +77,6 @@ PDF Editor
 на
 >  `<policy domain="coder" rights="read|write" pattern="PDF" />`
 
+3.  sudo apt-get install ghostscript
+
 
