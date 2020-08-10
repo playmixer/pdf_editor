@@ -19,6 +19,9 @@
           {% endif %}
         </span>
       </label>
+      <div id="upload_spinner" class="upload_spinner">
+        <img src="{{ url_for('static', filename='images/Spinner.gif') }}" alt="Загрузка">
+      </div>
       <input type="submit" value="Загрузить" hidden>
     </div>
   </form>
@@ -32,6 +35,7 @@
     const upload_btn = document.getElementById('upload_btn')
     const upload_form = document.getElementById('upload_file_form')
     const error_message = document.getElementById('error_message')
+    const upload_spinner = document.getElementById('upload_spinner')
     if (e.target.value !== '') {
       error_message.innerText = '';
       for (let i = 0; i < e.target.files.length; i++) {
@@ -46,8 +50,10 @@
         }
       }
       if (error_message.innerText === '') {
-        upload_btn.disabled = true;
+        upload_btn.classList.add('loading')
         upload_form.submit()
+        upload_btn.style.display = 'none'
+        upload_spinner.style.display = 'block'
       }
     }
   }
