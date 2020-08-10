@@ -165,7 +165,7 @@ h1, h2, h3, h4, h4, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer; 
+  cursor: pointer;
   border: none;
   border-radius: 5px;
   padding: 0 20px;
@@ -177,7 +177,7 @@ h1, h2, h3, h4, h4, h6 {
 .btn:hover {
   background-color: black;
   transition-duration: 0.4s;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .btn:disabled {
@@ -197,6 +197,20 @@ h1, h2, h3, h4, h4, h6 {
   padding: 0 5px;
 }
 
+.btn.loading {
+  background-color: #3B666B;
+  cursor: not-allowed;
+  position: inherit;
+}
+
+.upload_spinner {
+  display: none;
+}
+
+.upload_spinner img {
+  width: 140px;
+}
+
 .text_decor {
   font-weight: 600;
 }
@@ -206,7 +220,7 @@ h1, h2, h3, h4, h4, h6 {
   font-size: 1.25em;
   font-weight: 700;
   color: white;
-  cursor: pointer; 
+  cursor: pointer;
   line-height: 20px;
   text-decoration: none;
   padding: 10px;
@@ -215,7 +229,7 @@ h1, h2, h3, h4, h4, h6 {
 
 .btn_back:hover {
   padding-left: 5px;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .btn_back:before {
@@ -244,14 +258,13 @@ h1, h2, h3, h4, h4, h6 {
   background-color: black;
   transition-duration: 0.4s;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .list_group {
   width: 100%;
   padding-left: 0;
-  margin: 0px;
-  margin-bottom: 5px;
+  margin: 0px 0px 5px;
 }
 
 .list_group .list_item {
@@ -272,8 +285,8 @@ h1, h2, h3, h4, h4, h6 {
   margin-right: 5px;
 }
 
-.list_group .list_item .list_item_btn_remove {  
-  cursor: pointer; 
+.list_group .list_item .list_item_btn_remove {
+  cursor: pointer;
   background-color: #cccccc;
   border-radius: 50%;
   display: none;
@@ -335,7 +348,7 @@ h1, h2, h3, h4, h4, h6 {
 
 .list_page .list_page_btn_remove {
   position: relative;
-  cursor: pointer; 
+  cursor: pointer;
   background-color: #ccc;
   border-radius: 50%;
   display: none;
@@ -378,7 +391,7 @@ h1, h2, h3, h4, h4, h6 {
 }
 
 .action_panel .action_btn {
-  cursor: pointer; 
+  cursor: pointer;
   text-decoration: none;
   color: black;
   padding: 5px;
@@ -390,7 +403,7 @@ h1, h2, h3, h4, h4, h6 {
   background-color: #ccc;
 }
 
-.tools_container {    
+.tools_container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
