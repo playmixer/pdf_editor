@@ -24,16 +24,6 @@ PDF Editor
 3. pip install -r requirement
 4. python main.py
 
-**Доп. материалы**
-
-**При включенном параметре *PDF_SHOW_REAL_PAGE_IMAGE* в config.py**
->  Реальное изображение страниц PDF файла
-
-
-*  Скачать и установить [ImageMagic](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
-
-
-
 
 **Ubuntu**
 
@@ -67,9 +57,10 @@ PDF Editor
 **При включенном параметре *PDF_SHOW_REAL_PAGE_IMAGE* в config.py**
 >  Реальное изображение страниц PDF файла
 
+*Для Ubuntu*
+
 1.  sudo apt-get install libmagickwand-dev
 2.  sudo vi etc/Imagemagick-6/policy.xml
-
 
 Изменить строку
 >  `<policy domain="coder" rights="none" pattern="PDF" />`
@@ -79,4 +70,6 @@ PDF Editor
 
 3.  sudo apt-get install ghostscript
 
+*Для Windows*
 
+*  Установить библиотеку [ImageMagic](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
