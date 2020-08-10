@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Document{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for ('static' , filename='css/main.css') }}">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PDF Editor{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for ('static' , filename='css/main.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-  <div class="content">
+<div class="content">
     <div class="nav_menu">
-      <a class="nav_caption" name="nav_link" href="{{ url_for('index_view') }}" style="display: flex; justify-content: center; align-items: center;">
-        <img src="{{ url_for ('static', filename='images/pdf_home.png') }}" alt="Главная страница" style="max-height: inherit;">
-        <span>PDF</span>
-      </a>
-      <a class="link" name="nav_link" href="{{ url_for('remove_pages_view') }}">Удалить PDF-страницы</a>
-      <a class="link" name="nav_link" href="{{ url_for('merge_pdf_view') }}">Объединить PDF файлы</a>
-      <a class="link" name="nav_link" href="{{ url_for('organize_pdf_view') }}">Организовать PDF</a>
+        <a class="nav_caption" name="nav_link" href="{{ url_for('index_view') }}"
+           style="display: flex; justify-content: center; align-items: center;">
+            <img src="{{ url_for ('static', filename='images/pdf_home.png') }}" alt="Главная страница"
+                 style="max-height: inherit;">
+            <span>PDF</span>
+        </a>
+        <a class="link" name="nav_link" href="{{ url_for('remove_pages_view') }}">Удалить PDF-страницы</a>
+        <a class="link" name="nav_link" href="{{ url_for('merge_pdf_view') }}">Объединить PDF файлы</a>
+        <a class="link" name="nav_link" href="{{ url_for('organize_pdf_view') }}">Организовать PDF</a>
     </div>
     {% block content %}
     <div class="tools_container">
-      <a href="{{ url_for('remove_pages_view') }}" class="tool_link">
-        <div class="tool_conten">
-          <span class="tool_head">Удалить PDF-страницы</span>
-          <span class="tool_description">Выберите и удалите ненужные PDF-страницы. Получить новый файл без ваших удаленных страниц.</span>
-        </div>
-      </a>
-      <a href="{{ url_for('merge_pdf_view') }}" class="tool_link">
-        <div class="tool_conten">
-          <span class="tool_head">Объединить PDF файлы</span>
-          <span class="tool_description">Объединяйте PDF файлы и упорядочите их легко и быстро в любом порядке.</span>
-        </div>
-      </a>
-      <a href="{{ url_for('organize_pdf_view') }}" class="tool_link">
-        <div class="tool_conten">
-          <span class="tool_head">Организовать PDF</span>
-          <span class="tool_description">Сортировка и удаление PDF-страниц.
+        <a href="{{ url_for('remove_pages_view') }}" class="tool_link">
+            <div class="tool_conten">
+                <span class="tool_head">Удалить PDF-страницы</span>
+                <span class="tool_description">Выберите и удалите ненужные PDF-страницы.
+            Получить новый файл без ваших удаленных страниц.</span>
+            </div>
+        </a>
+        <a href="{{ url_for('merge_pdf_view') }}" class="tool_link">
+            <div class="tool_conten">
+                <span class="tool_head">Объединить PDF файлы</span>
+                <span class="tool_description">Объединяйте PDF файлы и упорядочите их легко и быстро в любом порядке.</span>
+            </div>
+        </a>
+        <a href="{{ url_for('organize_pdf_view') }}" class="tool_link">
+            <div class="tool_conten">
+                <span class="tool_head">Организовать PDF</span>
+                <span class="tool_description">Сортировка и удаление PDF-страниц.
             Перетащите миниатюры страниц и отсортируйте их.</span>
-        </div>
-      </a>
+            </div>
+        </a>
 
     </div>
     {% endblock %}
-  </div>
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
