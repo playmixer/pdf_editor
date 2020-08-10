@@ -65,7 +65,8 @@ def generating_images(filename):
     images = []
     start = time()
     for i in range(pdf.pageCount()):
-        img = pdf.pageToPng(i) if (time() - start < MAX_TIME_LOADING) else ''
+        is_short_time = time() - start < MAX_TIME_LOADING
+        img = pdf.pageToPng(i) if is_short_time else ''
         images.append(os.path.split(img)[1])
 
     return images
