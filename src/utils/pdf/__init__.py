@@ -3,7 +3,6 @@ import os
 import io
 from wand.image import Image
 from .errors import ExceptionNotFoundFile
-from time import time
 
 """
 для Linux может потребоваться 
