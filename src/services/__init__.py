@@ -7,7 +7,7 @@ from config import config
 from time import time
 
 UPLOAD_FOLDER = config['UPLOAD_FOLDER']
-MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES']
+MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES'] if config['LONG_TIME_LOADING_REAL_IMAGES'] else 99999
 
 
 def uploading_file(request, template, config, status, *args, **kwargs):
