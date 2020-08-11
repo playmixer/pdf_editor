@@ -436,6 +436,7 @@ h1, h2, h3, h4, h4, h6 {
 
 .tools_container .tool_head {
   font-size: 1.2em;
+  font-weight: 600;
 }
 
 .tools_container .tool_description {
