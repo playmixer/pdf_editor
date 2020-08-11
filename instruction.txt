@@ -1,0 +1,24 @@
+Инструкция по установке на Windows
+
+1. Установить python 3.6 +
+- https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe
+
+2. Установить библиотеку ImageMagick
+- https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe
+
+3. Скопировать репозиторий
+- git clone https://gitlab.oilpc.local/Shkirya.NS/pdf_editor.git
+
+4. Зайти в папку приложения
+- cd pdf_editor
+
+5. Создать виртуальное окружение и запустить его
+- python -m venv env
+- env/Scripts/activate.bat
+
+6. Установить завимости
+- pip install -r requirements.txt
+- pip install waitress
+
+7. Запустить сервер
+- waitress-serve --port=8800 --threads=3 wsgi:app
