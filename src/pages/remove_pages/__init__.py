@@ -12,7 +12,7 @@ def remove_pages_view():
     if request.method == 'POST':
         ACTION = request.values.get('action')
         if ACTION is None:
-            return uploading_file(request, template, config, status)
+            return uploading_file(request, template)
 
         if ACTION == status['REMOVE']:
             filename = request.values.get('f')

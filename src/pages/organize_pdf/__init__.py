@@ -14,7 +14,7 @@ def organize_pdf_view():
     if request.method == 'POST':
         ACTION = request.values.get('action')
         if ACTION is None:
-            return uploading_file(request, template, config, status, generate_img=GENERATE_IMG)
+            return uploading_file(request, template, generate_img=GENERATE_IMG)
 
         if ACTION == status['ORGANIZE']:
             sort_pages = [int(x) for x in request.values.getlist('sort_pages')]

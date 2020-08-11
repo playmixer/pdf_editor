@@ -13,7 +13,7 @@ def merge_pdf_view():
     if request.method == 'POST':
         ACTION = request.values.get('action')
         if ACTION is None:
-            return uploading_file(request, template, config, status)
+            return uploading_file(request, template)
 
         if ACTION == status['MERGE']:
             files = request.values.getlist('sorted_files')
