@@ -5,12 +5,13 @@ from werkzeug.utils import secure_filename
 from flask import render_template
 from config import config
 from time import time
+from src.const.status import status
 
 UPLOAD_FOLDER = config['UPLOAD_FOLDER']
 MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES'] if config['LONG_TIME_LOADING_REAL_IMAGES'] else 99999
 
 
-def uploading_file(request, template, config, status, *args, **kwargs):
+def uploading_file(request, template, *args, **kwargs):
     GENERATE_IMG = kwargs.get('generate_img') if kwargs.get('generate_img') else False
 
     if not os.path.exists(UPLOAD_FOLDER):
