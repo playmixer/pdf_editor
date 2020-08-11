@@ -7,7 +7,7 @@ config = {
     "DEV_PORT": 5000,
     #
 
-    "STATIC_URL_PATH": "/",
+    "STATIC_URL_PATH": "/static",
     "ALLOWED_EXTENSIONS": ['pdf'],
     "TEMPLATES": os.path.join("src", "templates"),
     "STATIC": os.path.join("src", "static"),
