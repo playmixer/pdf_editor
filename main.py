@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from config import config
 from src.pages import merge_pdf, remove_pages, organize_pdf, download, index, upload_file
 
@@ -17,6 +17,12 @@ app.add_url_rule('/merge_pdf', view_func=merge_pdf.merge_pdf_view, methods=['GET
 app.add_url_rule('/organize_pdf', view_func=organize_pdf.organize_pdf_view, methods=['GET', 'POST'])
 app.add_url_rule('/download/<filename>', view_func=download.download_view)
 app.add_url_rule('/uploads/<filename>', view_func=upload_file.upload_file_view)
+
+
+@app.errorhandler(404)
+def page_not_found_view(e):
+    return render_template('404.html')
+
 
 if __name__ == '__main__':
     app.run(debug=config['DEV_DEBUG'],
