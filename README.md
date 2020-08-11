@@ -73,3 +73,37 @@ PDF Editor
 *Для Windows*
 
 *  Установить библиотеку [ImageMagick](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
+
+
+**Инструкция по установке**
+
+1. Установить python 3, Gunicorn и сопутствующие библиотеки
+>  sudo apt-get install -y python3-pip python3-dev python3-venv gunicorn3 libmagickwand-dev ghostscript
+
+
+2. Разрешение на редактирование PDF
+>  sudo vi etc/Imagemagick-6/policy.xml
+
+Изменить строку
+>  `<policy domain="coder" rights="none" pattern="PDF" />`
+
+на
+>  `<policy domain="coder" rights="read|write" pattern="PDF" />`
+
+2. Скопировать репозиторий
+>  git clone https://gitlab.oilpc.local/Shkirya.NS/pdf_editor.git
+
+3. Зайти в папку приложения
+>  cd pdf_editor
+
+4. Создаем виртуальное окружение и запускаем его
+*  >  python3 -m venv env
+*  >  source env/bin/activate
+
+5. Установить завимости
+>  pip install -r requirements.txt
+
+6. Запустить сервер
+>  gunicorn --bind 0.0.0.0:8800 --workers 3 wsgi:app
+
+
