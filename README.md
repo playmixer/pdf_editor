@@ -75,7 +75,7 @@ PDF Editor
 *  Установить библиотеку [ImageMagick](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
 
 
-**Инструкция по установке**
+**Инструкция по установке на Ubuntu**
 
 1. Установить python 3, Gunicorn и сопутствующие библиотеки
 >  sudo apt-get install -y python3-pip python3-dev python3-venv gunicorn3 libmagickwand-dev ghostscript
@@ -103,8 +103,38 @@ PDF Editor
 5. Установить завимости
 >  pip install -r requirements.txt
 
+>  pip install gunicorn
+
 6. Запустить сервер
 >  gunicorn --bind 0.0.0.0:8800 --workers 3 wsgi:app
+
+
+
+**Инструкция по установке на Windows**
+
+1. Установить python 3.6 +
+> [https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe](https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe)
+
+2. Установить библиотеку ImageMagick
+> [https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
+
+2. Скопировать репозиторий
+> git clone https://gitlab.oilpc.local/Shkirya.NS/pdf_editor.git
+
+3. Зайти в папку приложения
+> cd pdf_editor
+
+4. Создаем виртуальное окружение и запускаем его
+* > python -m venv env
+* > env/Scripts/activate.bat
+
+5. Установить завимости
+* > pip install -r requirements.txt
+* > pip install waitress
+
+6. Запустить сервер
+> waitress-serve --port=8800 --threads=3 wsgi:app
+
 
 
 **Развернутакая инструкция**
