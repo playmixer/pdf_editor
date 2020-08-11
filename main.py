@@ -5,12 +5,13 @@ from src.pages import merge_pdf, remove_pages, organize_pdf, download, index, up
 app = Flask(__name__,
             template_folder=config['TEMPLATES'],
             static_folder=config['STATIC'],
+            static_url_path=config['STATIC_URL_PATH']
             )
 
 app.config['UPLOAD_FOLDER'] = config['UPLOAD_FOLDER']
 app.config['MAX_CONTENT_LENGTH'] = config['MAX_SIZE_FILE'] * 1024 * 1024
 
-app.add_url_rule('/home', view_func=index.index_view)
+app.add_url_rule('/pdf_editor/home', view_func=index.index_view)
 app.add_url_rule('/', view_func=index.index_view)
 app.add_url_rule('/remove_pages', view_func=remove_pages.remove_pages_view, methods=['GET', 'POST'])
 app.add_url_rule('/merge_pdf', view_func=merge_pdf.merge_pdf_view, methods=['GET', 'POST'])
