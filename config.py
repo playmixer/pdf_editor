@@ -11,7 +11,7 @@ config = {
     "TEMPLATES": os.path.join("src", "templates"),
     "STATIC": os.path.join("src", "static"),
     "UPLOAD_FOLDER": os.path.abspath(os.path.join(os.path.dirname(__file__), "upload")),
-    "MAX_SIZE_FILE": 100,
+    "MAX_SIZE_FILE": 50,
     "FILE_NAME_LENGTH": 20,
     "FILE_STORAGE_TIME": 600,  # 60 = 1 мин,
     "SHOW_REAL_PAGE_IMAGE": True,  # большая нагрузка
