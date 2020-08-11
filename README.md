@@ -107,3 +107,5 @@ PDF Editor
 >  gunicorn --bind 0.0.0.0:8800 --workers 3 wsgi:app
 
 
+**Развернутакая инструкция**
+>  https://medium.com/faun/deploy-flask-app-with-nginx-using-gunicorn-7fda4f50066a
