@@ -1,0 +1,1 @@
+start "PdfEditor" env\Scripts\waitress-serve.exe --port=8800 --threads=3 wsgi:app
