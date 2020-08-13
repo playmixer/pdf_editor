@@ -39,6 +39,7 @@
         const allowed_charset = /[0-9,-]/;
         const input_pages = document.getElementById('remove_pages')
         const MAX_NUM_PAGE = 1000;
+        const PAGE_COUNT = {{ files[0].page_count }};
 
         input_pages.oninput = function (e) {
             var res = '';
@@ -72,7 +73,9 @@
                     res.push(Number(val))
                 }
             })
-            return res
+            return res.filter(val => {
+                return val <= PAGE_COUNT
+            })
         }
 
         function split_dash(data) {
