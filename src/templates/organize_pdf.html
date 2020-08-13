@@ -32,7 +32,7 @@
                     </a>
                     <span class="list_page_num">Стр. {{ i + 1 }}</span>
                     {% if files[0].images[i] %}
-                    <img class="list_page_img" src="/uploads/{{ files[0].images[i] }}" alt="">
+                    <img class="list_page_img" src="{{ url_for('upload_file_view', filename=files[0].images[i]) }}" alt="">
                     {% else %}
                     <img class="list_page_img" src="{{ url_for('static', filename='images/default_page.png') }}" alt="">
                     {% endif %}
