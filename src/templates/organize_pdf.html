@@ -23,7 +23,7 @@
             <h3 class="block_item title">Страницы загруженного файла</h3>
             <ul id="pageList" class="list_group_pages">
                 {% for i in range(files[0].page_count) %}
-                <li class="list_page">
+                <li class="list_page_item dragable_item">
                     <a class="list_page_btn_remove" onclick="removePage(this)">
                         <span>
                             <img src="{{ url_for('static', filename='images/baseline_close_white_18dp.png') }}"
