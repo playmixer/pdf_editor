@@ -23,8 +23,22 @@
         <div class="block_item">
             <label for="remove_pages">Выберите страницы для удаления: </label>
             <input id="remove_pages" type="text" placeholder="пример: 1,5-8,12" class="input">
+            <ul id="pageList" class="list_group_pages">
+                {% for i in range(files[0].page_count) %}
+                <li class="list_page_item" onclick="handle_click_page(event, {{ i }})">
+                    <img class="list_page_removed" src="{{ url_for('static', filename='images/remove.svg') }}" alt="">
+                    <span class="list_page_num">Стр. {{ i + 1 }}</span>
+                    {% if files[0].images[i] %}
+                    <img class="list_page_img" src="{{ url_for('upload_file_view', filename=files[0].images[i]) }}"
+                         alt="">
+                    {% else %}
+                    <img class="list_page_img" src="{{ url_for('static', filename='images/default_page.png') }}" alt="">
+                    {% endif %}
+                    <input type="hidden" name="page_numbers" value="{{ i }}">
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        <span class="block_item" id="number_page_list"></span>
         <form action="?action=remove&f={{ files[0].filename }}" method="post">
             <input type="hidden" value="" name="form_page_list">
             <button class="btn btn_next" type="submit" id="form_page_list_submit" disabled>
@@ -36,15 +50,23 @@
         </form>
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/Sortable.min.js') }}"></script>
 <script>
+    Sortable.create(pageList, {
+        swapThreshold: 0,
+        animation: 150,
+    });
+
     const ALLOWED_CHARSET = /[0-9,-]/;
     const MAX_NUM_PAGE = 1000;
     const PAGE_COUNT = "{{ files[0].page_count }}";
+    const input_pages = document.getElementById('remove_pages')
 
-    input_pages = document.getElementById('remove_pages')
+    let removed_page_list = [];
+    let selected_page;
 
     input_pages.oninput = function (e) {
-        var res = '';
+        let res = '';
         setTimeout(() => {
             e.target.value.split('').forEach(val => {
                 if (ALLOWED_CHARSET.exec(val)) {
@@ -53,15 +75,9 @@
             })
             e.target.value = res
 
-            const out_page_list = document.getElementById('number_page_list')
-            const form_input_hidden = document.getElementsByName('form_page_list')[0]
-            const remove_page_list = split_number_pages(res)
-            const form_page_list_submit = document.getElementById('form_page_list_submit')
-
-            out_page_list.innerText = remove_page_list.join(', ')
-            form_input_hidden.value = remove_page_list.join(',')
-            form_page_list_submit.disabled = !remove_page_list.length ? true : false
-        }, 300)
+            removed_page_list = split_number_pages(res);
+            update_removed_page_list()
+        }, 100)
     }
 
     function split_number_pages(data) {
@@ -81,8 +97,7 @@
     }
 
     function split_dash(data) {
-        res = []
-        splited = data.split('-').filter(val => {
+        const splited = data.split('-').filter(val => {
             return val !== '-' && val !== '' && Number(val) < MAX_NUM_PAGE
         })
         if (splited.length === 2) {
@@ -91,6 +106,105 @@
         return []
     }
 
+    function handle_click_page(e, id) {
+        const page_num = id + 1;
+        if (e.shiftKey) {
+            if (selected_page) {
+                return handle_onclick_page_range(selected_page, page_num)
+            }
+        }
+        selected_page = page_num;
+
+        if (removed_page_list.indexOf(page_num) + 1) {
+            removed_page_list = removed_page_list.filter(val => {
+                return val != page_num
+            })
+        } else {
+            removed_page_list.push(page_num)
+        }
+
+        update_removed_page_list()
+        input_pages.value = numbers_to_ranges(removed_page_list)
+    }
+
+    function handle_onclick_page_range(start, end) {
+        const page_list = document.getElementsByName('page_numbers')
+        const removed = page_list[start - 1].parentElement.classList.contains('removed')
+        const page_first = Math.min(start, end)
+        const page_last = Math.max(start, end) + 1
+        const range = [...Array(page_last).keys()].slice(page_first)
+
+        if (removed) {
+            removed_page_list = removed_page_list.concat(range)
+        }  else {
+            removed_page_list = removed_page_list.filter(el => {
+                return !(range.indexOf(el) + 1)
+            })
+        }
+
+        update_removed_page_list()
+        input_pages.value = numbers_to_ranges(removed_page_list)
+    }
+
+    function update_removed_page_list() {
+        removed_page_list = [...new Set(removed_page_list)].sort((a, b) => {
+            return a < b ? -1 : 1
+        })
+        const form_input_hidden = document.getElementsByName('form_page_list')[0]
+        const form_page_list_submit = document.getElementById('form_page_list_submit')
+
+
+        render_removable_pages(removed_page_list)
+        form_input_hidden.value = removed_page_list.join(',')
+        form_page_list_submit.disabled = !removed_page_list.length
+    }
+
+    let render_pages_timerId = null
+    function render_removable_pages(number_list) {
+        clearTimeout(render_pages_timerId)
+        render_pages_timerId = setTimeout(() => {
+            const page_numbers = document.getElementsByName('page_numbers')
+            for (let i = 0; i < page_numbers.length; i++) {
+                if (number_list.indexOf(i + 1) + 1) {
+                    page_numbers[i].parentElement.classList.add('removed')
+                } else {
+                    page_numbers[i].parentElement.classList.remove('removed')
+                }
+            }
+        }, 100)
+    }
+
+    function numbers_to_ranges(num_list) {
+        let res = ''
+        let last_val = null;
+        let dash = false;
+
+        num_list.forEach(val => {
+            if (!last_val) {
+                res = `${val}`;
+            } else {
+                if (val !== (last_val + 1) && dash) {
+                    res += `${last_val}`;
+                    dash = false;
+                }
+                if (val !== (last_val + 1) && !dash) {
+                    res += `,${val}`;
+                }
+                if (val === (last_val + 1) && !dash) {
+                    res += `-`;
+                    dash = true;
+                }
+                if (dash && val === (last_val + 1)) {
+
+                }
+            }
+            last_val = val
+        })
+        if (dash) {
+            res += `${last_val}`;
+        }
+        return res
+    }
 
 </script>
 {% endif %}

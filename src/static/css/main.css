@@ -292,7 +292,11 @@ h1, h2, h3, h4, h4, h6 {
   margin: 0 0 5px 0;
 }
 
-.list_group_pages .list_page {
+.list_group_pages .list_page_item.dragable_item {
+  cursor: move;
+}
+
+.list_group_pages .list_page_item {
   list-style-type: none;
   width: 80px;
   height: 120px;
@@ -300,7 +304,6 @@ h1, h2, h3, h4, h4, h6 {
   margin-bottom: 5px;
   margin-right: 5px;
   padding: 5px;
-  cursor: move;
   color: black;
   display: flex;
   justify-content: flex-end;
@@ -308,11 +311,16 @@ h1, h2, h3, h4, h4, h6 {
   flex-direction: column;
 }
 
-.list_page.selected, .list_page.draggable_list {
+
+.list_group_pages .list_page_item:hover {
+  border-color: #df121250;
+}
+
+.list_page_item.selected, .list_page_item.draggable_list {
   background-color: #df121217;
 }
 
-.list_page .list_page_btn_remove {
+.list_page_item .list_page_btn_remove {
   position: relative;
   cursor: pointer;
   background-color: #ccc;
@@ -325,27 +333,42 @@ h1, h2, h3, h4, h4, h6 {
   z-index: 1;
 }
 
-.list_page .list_page_num {
+.list_page_item .list_page_num {
   z-index: 1;
 }
 
-.list_page .list_page_img {
+.list_page_item .list_page_img {
   width: inherit;
   position: absolute;
   padding: 5px;
 }
 
-.list_page .list_page_btn_remove img {
+.list_page_item .list_page_btn_remove img {
   width: 20px;
   height: 20px;
 }
 
-.list_page:hover .list_page_btn_remove {
+.list_page_item:hover .list_page_btn_remove {
   display: block;
 }
 
-.list_page:hover .list_page_btn_remove:hover {
+.list_page_item:hover .list_page_btn_remove:hover {
   background-color: #e5322d;
+}
+
+.list_page_item .list_page_removed {
+  display: none;
+}
+
+.list_page_item.removed .list_page_removed {
+  display: block;
+  position: relative;
+  top: -30px;
+  z-index: 1;
+}
+
+.list_page_item.removed .list_page_removed img {
+  width: 20px;
 }
 
 .action_panel {

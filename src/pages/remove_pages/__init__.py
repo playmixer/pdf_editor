@@ -5,6 +5,8 @@ from src.utils.pdf import PdfEditor
 from src.services import uploading_file
 from src.const.status import status
 
+GENERATE_IMG = config['SHOW_REAL_PAGE_IMAGE']
+
 
 def remove_pages_view():
     template = 'remove_pages.html'
@@ -12,7 +14,7 @@ def remove_pages_view():
     if request.method == 'POST':
         ACTION = request.values.get('action')
         if ACTION is None:
-            return uploading_file(request, template)
+            return uploading_file(request, template, generate_img=GENERATE_IMG)
 
         if ACTION == status['REMOVE']:
             filename = request.values.get('f')
@@ -25,9 +27,9 @@ def remove_pages_view():
                                    )
 
         return render_template("message.html", message={
-                            'title': 'Что то пошло не так',
-                            'description': ''
-                            })
+            'title': 'Что то пошло не так',
+            'description': ''
+        })
 
     if len(request.values) > 0:
         return redirect(request.path)
