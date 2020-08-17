@@ -72,7 +72,7 @@ PDF Editor
 
 *Для Windows*
 
-*  Установить библиотеку [ImageMagick](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
+*  Установить библиотеку [ImageMagick](https://imagemagick.org/script/download.php)
 
 
 **Инструкция по установке на Ubuntu**
