@@ -1,12 +1,6 @@
 import os
 
 config = {
-    # Только для дев сервера
-    "DEV_DEBUG": True,
-    "DEV_HOST": "localhost",
-    "DEV_PORT": 5000,
-    #
-
     "SUBDIRECTORY": "",  # должен начинаться с '/', "" = без поддиректории
     "STATIC_URL_PATH": "/static",
     "ALLOWED_EXTENSIONS": ['pdf'],

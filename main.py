@@ -28,8 +28,8 @@ def page_not_found_view(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=config['DEV_DEBUG'],
+    app.run(debug=True,
             use_reloader=True,
-            host=config['DEV_HOST'],
-            port=config['DEV_PORT']
+            host='localhost',
+            port=5000
             )
