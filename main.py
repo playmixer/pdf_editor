@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from config import config
 from src.pages import merge_pdf, remove_pages, organize_pdf, download, index, upload_file
+from src.logger import logger
 
 SUBDIR = config['SUBDIRECTORY']
 
@@ -24,6 +25,7 @@ app.add_url_rule(f'{SUBDIR}/uploads/<filename>', view_func=upload_file.upload_fi
 
 @app.errorhandler(404)
 def page_not_found_view(e):
+    logger.info('Page not found')
     return render_template('404.html')
 
 

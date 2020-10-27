@@ -6,6 +6,7 @@ from flask import render_template
 from config import config
 from time import time
 from src.const.status import status
+from src.logger import logger
 
 UPLOAD_FOLDER = config['UPLOAD_FOLDER']
 MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES'] if config['LONG_TIME_LOADING_REAL_IMAGES'] else 99999
@@ -46,6 +47,7 @@ def uploading_file(request, template, *args, **kwargs):
                                settings=config
                                )
 
+    logger.info(f'Upload files {", ".join([x["title"] + "(" + x["filename"] + ")" for x in uploaded_files])}')
     return render_template(template,
                            files=uploaded_files,
                            status=status['UPLOADED'],

@@ -5,6 +5,7 @@ from src.utils.pdf import PdfEditor
 from src.services import uploading_file
 from src.const.status import status
 from src.const.messages import messages
+from src.logger import logger
 
 
 def merge_pdf_view():
@@ -29,6 +30,7 @@ def merge_pdf_view():
                 except ValueError:
                     mess = dict(messages['file_corrupted'])
                     mess['title'] = mess['title'].format(filename=files_title[i])
+                    logger.info(f"File corrupted {files_title[i]}")
                     return render_template('message.html', message=mess)
 
             extract_filename = file_.getFileName().split('.')[0]
