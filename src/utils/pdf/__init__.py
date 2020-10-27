@@ -18,7 +18,7 @@ class PdfEditor:
         if not os.path.exists(fileName):
             raise ExceptionNotFoundFile
         self.fileName = fileName
-        self.obj = PdfFileReader(self.fileName, 'rb')
+        self.obj = PdfFileReader(self.fileName, strict=False)
 
     def getFileName(self):
         return os.path.split(self.fileName)[1]
@@ -44,9 +44,9 @@ class PdfEditor:
 
     def merge(self, another_file):
         merger = PdfFileMerger()
-        merger.append(PdfFileReader(self.fileName, 'rb'))
+        merger.append(PdfFileReader(self.fileName, strict=False))
         if os.path.exists(another_file):
-            merger.append(PdfFileReader(another_file, 'rb'))
+            merger.append(PdfFileReader(another_file, strict=False))
             os.remove(another_file)
         merger.write(self.fileName)
 
