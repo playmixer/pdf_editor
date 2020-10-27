@@ -72,7 +72,7 @@ PDF Editor
 
 *Для Windows*
 
-*  Установить библиотеку [ImageMagick](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
+*  Установить библиотеку [ImageMagick](https://imagemagick.org/script/download.php)
 
 
 **Инструкция по установке на Ubuntu**
@@ -116,7 +116,7 @@ PDF Editor
 > [https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe](https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe)
 
 2. Установить библиотеку ImageMagick
-> [https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe](https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe)
+> [https://imagemagick.org/script/download.php](https://imagemagick.org/script/download.php)
 
 2. Скопировать репозиторий
 > git clone https://gitlab.oilpc.local/Shkirya.NS/pdf_editor.git
