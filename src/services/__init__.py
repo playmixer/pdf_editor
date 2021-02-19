@@ -7,6 +7,7 @@ from config import config
 from time import time
 from src.const.status import status
 from src.logger import logger
+from .task import taskman
 
 UPLOAD_FOLDER = config['UPLOAD_FOLDER']
 MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES'] if config['LONG_TIME_LOADING_REAL_IMAGES'] else 99999
@@ -18,7 +19,9 @@ def uploading_file(request, template, *args, **kwargs):
     if not os.path.exists(UPLOAD_FOLDER):
         os.mkdir(UPLOAD_FOLDER)
 
-    cleaning_upload_folder()
+    # удаляем файл старше чем FILE_STORAGE_TIME
+    # cleaning_upload_folder()
+
     files = request.files.getlist('upload_file')
     if files is None:
         return render_template(template, error="Файл не выбран", status=status['NOFILE'], settings=config)

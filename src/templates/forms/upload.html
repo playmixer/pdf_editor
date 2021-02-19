@@ -45,7 +45,7 @@
         if (size > MAX_SIZE_FILE) {
           error_message.innerText += `Файл ${e.target.files[i].name} превышает размер ${MAX_SIZE_FILE}Мб\n`
         }
-        if (!ALLOWED_EXTENSIONS.includes(extension)) {
+        if (!ALLOWED_EXTENSIONS.includes(extension.toLowerCase())) {
           error_message.innerText += `Файл ${e.target.files[i].name} с расширением ${extension} запрещен\n`
         }
       }
