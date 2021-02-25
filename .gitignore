@@ -3,3 +3,4 @@ env/*
 upload/*
 .idea/*
 logs/
+config.py

@@ -46,8 +46,8 @@ def remove_pages_view():
         err_message = "Исходный файл не найден"
 
     except Exception as err:
-        err_message = 'Что то пошло не так'
-        logger.error("remove page " + err)
+        err_message = 'Ошибка' + str(err)
+        logger.error("remove page Exception: " + str(err))
 
     return render_template("message.html", message={
         'title': err_message,

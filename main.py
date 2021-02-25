@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from config import config
 from src.pages import merge_pdf, remove_pages, organize_pdf, download, index, upload_file
 from src.logger import logger
@@ -14,7 +14,7 @@ def task_clean_upload():
         while True:
             sleep(60)
             cleaning_upload_folder()
-            print('Clean upload folder')
+            logger.info('clean upload folder')
     except KeyboardInterrupt:
         return
 
@@ -40,9 +40,16 @@ def simple_app():
 
     @app.errorhandler(404)
     def page_not_found_view(e):
-        print(e)
-        logger.info('Page not found')
+        logger.info('Page not found ' + request.url)
         return render_template('404.html')
+
+    @app.errorhandler(413)
+    def page_request_to_large(e):
+        logger.error('413 Request Entity Too Large: The data value transmitted exceeds the capacity limit.')
+        return render_template("message.html", message={
+            'title': 'Суммарный обЪем файлов превышает %sМб' % config.get('MAX_SIZE_FILE'),
+            'description': ''
+        })
 
     taskman.add_task(task_clean_upload)
 

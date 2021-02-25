@@ -38,6 +38,7 @@
     const upload_spinner = document.getElementById('upload_spinner')
     if (e.target.value !== '') {
       error_message.innerText = '';
+      let all_file_size = 0;
       for (let i = 0; i < e.target.files.length; i++) {
         const size = e.target.files[i].size / 1024 / 1024;
         const extension = e.target.files[i].name.split('.').pop();
@@ -48,6 +49,10 @@
         if (!ALLOWED_EXTENSIONS.includes(extension.toLowerCase())) {
           error_message.innerText += `Файл ${e.target.files[i].name} с расширением ${extension} запрещен\n`
         }
+        all_file_size += size;
+      }
+      if (all_file_size > MAX_SIZE_FILE && e.target.files.length > 1) {
+        error_message.innerText += `Суммарный объем файлов превышает ${MAX_SIZE_FILE}Мб\n`
       }
       if (error_message.innerText === '') {
         upload_btn.classList.add('loading')

@@ -61,9 +61,13 @@ def uploading_file(request, template, *args, **kwargs):
 def cleaning_upload_folder():
     files_of_upload = [os.path.join(UPLOAD_FOLDER, f) for f in os.listdir(UPLOAD_FOLDER) if
                        os.path.isfile(os.path.join(UPLOAD_FOLDER, f))]
+    removed = []
     for file_ in files_of_upload:
         if time() - os.stat(file_).st_ctime > config['FILE_STORAGE_TIME']:
             os.remove(file_)
+            removed.append(os.path.basename(file_))
+    if len(removed):
+        logger.info('removed ' + ', '.join(removed))
 
 
 def generating_images(filename):
