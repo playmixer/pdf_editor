@@ -12,4 +12,5 @@ config = {
     "FILE_STORAGE_TIME": 600,  # секунд,
     "SHOW_REAL_PAGE_IMAGE": True,  # большая нагрузка
     "LONG_TIME_LOADING_REAL_IMAGES": 10,
+    "IMAGE_RESOLUTION": 70
 }
