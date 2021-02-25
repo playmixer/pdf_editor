@@ -1,28 +1,29 @@
 Инструкция по установке на Windows
 
-1. Установить python 3.6 +
+1.	Установить python 3.6 + по ссылке
 - https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe
 
-2. Установить библиотеку ImageMagick
-- https://imagemagick.org/download/binaries/ImageMagick-7.0.10-26-Q16-HDRI-x64-dll.exe
+2.	Установить библиотеку Ghostscript по ссылке
+- https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9533/gs9533w64.exe
 
-3. Скопировать репозиторий
-- git clone https://gitlab.oilpc.local/Shkirya.NS/pdf_editor.git
+3.	Установить библиотеку ImageMagick по ссылке
+- https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.0.11-1-Q16-HDRI-x64-dll.exe
 
-4. Зайти в папку приложения
-- cd pdf_editor
+4.	Скопировать репозиторий
+    git clone https://gitlab.oilpc.local/Shkirya.NS/pdf_editor.git
 
-5. Создать виртуальное окружение и запустить его
-- python -m venv env
-- env/Scripts/activate.bat
+5.	Выполнить команды в командной строке Windows от имени администратора:
+5.1.	Зайти в папку приложения, которая создалась в результате копирования репозитория (п. 3), где pdf_editor – адрес папки на диске:
+    cd pdf_editor
+5.2.	Создать виртуальное окружение и запустить его:
+    python -m venv env
+    env/Scripts/activate.bat
+5.3.	Установить завимости
+    pip install -r requirements.txt
+    pip install waitress
+5.4.	Запустить сервер:
+    waitress-serve --port=8800 --threads=3 wsgi:app
 
-6. Установить завимости
-- pip install -r requirements.txt
-- pip install waitress
 
-7. Запустить сервер
-- waitress-serve --port=8800 --threads=3 wsgi:app
-
-
-# Доп. настройки 
+# Доп. настройки waitress
 # https://docs.pylonsproject.org/projects/waitress/en/stable/runner.html
