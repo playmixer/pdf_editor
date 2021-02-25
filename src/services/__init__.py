@@ -11,6 +11,7 @@ from .task import taskman
 
 UPLOAD_FOLDER = config['UPLOAD_FOLDER']
 MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES'] if config['LONG_TIME_LOADING_REAL_IMAGES'] else 99999
+IMAGE_RESOLUTION = config.get('IMAGE_RESOLUTION') if config.get('IMAGE_RESOLUTION') else 70
 
 
 def uploading_file(request, template, *args, **kwargs):
@@ -76,7 +77,7 @@ def generating_images(filename):
     start = time()
     for i in range(pdf.pageCount()):
         is_short_time = time() - start < MAX_TIME_LOADING
-        img = pdf.pageToPng(i) if is_short_time else ''
+        img = pdf.pageToPng(i, IMAGE_RESOLUTION) if is_short_time else ''
         images.append(os.path.split(img)[1])
 
     return images
