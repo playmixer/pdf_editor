@@ -4,7 +4,6 @@ from src.pages import merge_pdf, remove_pages, organize_pdf, download, index, up
 from src.logger import logger
 from src.services import taskman, cleaning_upload_folder
 from time import sleep
-import atexit
 
 SUBDIR = config['SUBDIRECTORY']
 
@@ -14,7 +13,7 @@ def task_clean_upload():
         while True:
             sleep(60)
             cleaning_upload_folder()
-            logger.info('clean upload folder')
+            # logger.info('clean upload folder')
     except KeyboardInterrupt:
         return
 

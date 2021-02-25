@@ -67,7 +67,7 @@ def cleaning_upload_folder():
             os.remove(file_)
             removed.append(os.path.basename(file_))
     if len(removed):
-        logger.info('removed ' + ', '.join(removed))
+        logger.info('files removed ' + ', '.join(removed))
 
 
 def generating_images(filename):

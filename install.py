@@ -12,4 +12,9 @@ def copy_file(file_from, file_to):
 
 
 # создаем дефолтные конфиги
-copy_file('config.example.py', 'config.py')
+def init():
+    copy_file('config.example.py', 'config.py')
+
+
+if __name__ == '__main__':
+    init()
