@@ -5,13 +5,25 @@ from werkzeug.utils import secure_filename
 from flask import render_template
 from config import config
 from time import time
-from src.const.status import status
+from src.const.status import Status
 from src.logger import logger
 from .task import taskman
+from src.services import taskman
+from time import sleep
 
 UPLOAD_FOLDER = config['UPLOAD_FOLDER']
 MAX_TIME_LOADING = config['LONG_TIME_LOADING_REAL_IMAGES'] if config['LONG_TIME_LOADING_REAL_IMAGES'] else 99999
 IMAGE_RESOLUTION = config.get('IMAGE_RESOLUTION') if config.get('IMAGE_RESOLUTION') else 70
+FILE_STORAGE_TIME = config['FILE_STORAGE_TIME']
+
+
+def task_clean_upload(timeout: int):
+    try:
+        sleep(timeout + 30)
+        logger.info('clean upload folder')
+        cleaning_upload_folder()
+    except KeyboardInterrupt:
+        return
 
 
 def uploading_file(request, template, *args, **kwargs):
@@ -22,10 +34,11 @@ def uploading_file(request, template, *args, **kwargs):
 
     # удаляем файл старше чем FILE_STORAGE_TIME
     # cleaning_upload_folder()
+    taskman.add_task(task_clean_upload, FILE_STORAGE_TIME)
 
     files = request.files.getlist('upload_file')
     if files is None:
-        return render_template(template, error="Файл не выбран", status=status['NOFILE'], settings=config)
+        return render_template(template, error="Файл не выбран", status=Status.nofile, settings=config)
 
     uploaded_files = []
     for file_ in files:
@@ -47,14 +60,14 @@ def uploading_file(request, template, *args, **kwargs):
     if len(uploaded_files) == 0:
         return render_template(template,
                                error="Выберите pdf-файл",
-                               status=status['NOFILE'],
+                               status=Status.nofile,
                                settings=config
                                )
 
-    logger.info(f'Upload files {", ".join([x["title"] + "(" + x["filename"] + ")" for x in uploaded_files])}')
+    logger.info(f'Upload file(s) {", ".join([x["title"] + "(" + x["filename"] + ")" for x in uploaded_files])}')
     return render_template(template,
                            files=uploaded_files,
-                           status=status['UPLOADED'],
+                           status=Status.uploaded,
                            settings=config
                            )
 
@@ -64,7 +77,7 @@ def cleaning_upload_folder():
                        os.path.isfile(os.path.join(UPLOAD_FOLDER, f))]
     removed = []
     for file_ in files_of_upload:
-        if time() - os.stat(file_).st_ctime > config['FILE_STORAGE_TIME']:
+        if time() - os.stat(file_).st_ctime > FILE_STORAGE_TIME:
             os.remove(file_)
             removed.append(os.path.basename(file_))
     if len(removed):

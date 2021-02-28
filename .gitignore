@@ -4,3 +4,5 @@ upload/*
 .idea/*
 logs/
 config.py
+build
+dist

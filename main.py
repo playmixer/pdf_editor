@@ -2,20 +2,25 @@ from flask import Flask, render_template, request
 from config import config
 from src.pages import merge_pdf, remove_pages, organize_pdf, download, index, upload_file
 from src.logger import logger
-from src.services import taskman, cleaning_upload_folder
-from time import sleep
+from src.services import taskman, task_clean_upload
+import atexit
 
 SUBDIR = config['SUBDIRECTORY']
+FILE_STORAGE_TIME = config['FILE_STORAGE_TIME']
 
 
-def task_clean_upload():
-    try:
-        while True:
-            sleep(60)
-            cleaning_upload_folder()
-            # logger.info('clean upload folder')
-    except KeyboardInterrupt:
-        return
+def stop_app():
+    logger.info("App stop")
+
+
+atexit.register(stop_app)
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
 
 
 def simple_app():
@@ -50,8 +55,8 @@ def simple_app():
             'description': ''
         })
 
-    taskman.add_task(task_clean_upload)
-
+    taskman.add_task(task_clean_upload, FILE_STORAGE_TIME)
+    logger.info("App start")
     return app
 
 

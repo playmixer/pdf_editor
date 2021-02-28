@@ -1,8 +1,7 @@
-status = {
-    'NOFILE': 'nofile',
-    'UPLOADED': 'uploaded',
-    'MERGE': 'merge',
-    'REMOVE': 'remove',
-    'COMPLETED': 'completed',
-    'ORGANIZE': 'organize'
-}
+class Status:
+    nofile = 'nofile'
+    uploaded = 'uploaded'
+    merge = 'merge'
+    remove = 'remove'
+    completed = 'completed'
+    organize = 'organize'
